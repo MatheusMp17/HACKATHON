@@ -1,5 +1,71 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Item {
-    int id;
-    String nome;
+    private boolean doacao;
+    private int id;
+    private String nome;
+    private TipoDoacao tipo;
+    private int qtd;
     
+    public Item(int id, String nome, TipoDoacao tipo, int qtd, boolean doacao){
+        setId(id);
+        setNome(nome);
+        setTipo(tipo);
+        setQtd(qtd);
+    }
+
+    public int getId() {
+        return this.id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public TipoDoacao getTipo() {
+        return tipo;
+    }
+    public void setTipo(TipoDoacao tipo) {
+        this.tipo = tipo;
+    }
+    public int getQtd() {
+        return qtd;
+    }
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
+    }
+
+    public boolean getDoacao(){
+        return this.doacao;
+    }
+
+    public void setDoacao(boolean doacao) {
+        this.doacao = doacao;
+    }
+
+
+    @Override
+    public String toString() {
+        return (getDoacao() + "\n" + getId() + "\n" + getNome() + "\n" + getTipo() + "\n" + getQtd());
+    }
+    public static void escritaDeArquivo(String nomeArquivo, ArrayList< Item > itens) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo))) {
+            for (Item item: itens) {
+                writer.write(item.toString());
+                writer.newLine();
+            }
+            System.out.println("Itens salvos com sucesso no arquivo " + nomeArquivo);
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+        }
+    }
 }
