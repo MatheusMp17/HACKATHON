@@ -3,53 +3,57 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        int id, usuario;
-        System.out.print("Gostaria de entrar como instituição ou pessoa?\n1- pessoa\n2- instituição");
-        usuario = teclado.nextInt();
-       do{  
-        if(usuario == 1) {
-            System.out.print("Informe o seu CPF: ");
-            id = teclado.nextInt();
-            System.out.print("");
-        
-        }
-        else if(usuario == 2) {
-            System.out.print("Informe o seu CNPJ: ");
-            id = teclado.nextInt();
-            System.out.print("");
-        }
-       }while(resposta != 1 || resposta != 2);    
+    
 
-            System.out.println ("Você é doador(1) ou necessitado(2)?");
-                int resposta = teclado.nextInt();
-                do{
-                switch (resposta) {
-                    case 1:
-                    break;
-                    case 2:
-                    break;
-                    default: 
-                        System.out.println ("Resposta inválida.")
-                }
-            }while(resposta != 1 || resposta != 2);
-    
-    
-    
-       try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                String id = linha;
+ArrayList<Item> Doadores = new ArrayList<>();  
+ArrayList<Item> Receptores = new ArrayList<>();  
+
+try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
+    String linha;
+
+    while ((linha = reader.readLine()) != null) {
+        String doacao = reader.readLine();
+
+        if (Boolean.valueOf(doacao)) {
+            Doadores.add(new Item());  
+
+            for (Item doador : Doadores) {
+                String id = reader.readLine();
                 String nome = reader.readLine();
                 String tipo = reader.readLine();
                 String qtd = reader.readLine();
-                              
-                }
-                
+
+                doador.setId(Integer.valueOf(id));
+                doador.setNome(nome);
+                doador.setTipo(TipoDoacao.valueOf(tipo));
+                doador.setQtd(Integer.valueOf(qtd));
             }
-        } catch (IOException e) {
-            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }
-        return calcados;}
+
+        if (!Boolean.valueOf(doacao)) {
+            Receptores.add(new Item()); 
+
+            for (Item receptor : Receptores) {
+                String id = reader.readLine();
+                String nome = reader.readLine();
+                String tipo = reader.readLine();
+                String qtd = reader.readLine();
+
+                receptor.setId(Integer.valueOf(id));
+                receptor.setNome(nome);
+                receptor.setTipo(TipoDoacao.valueOf(tipo));  
+                receptor.setQtd(Integer.valueOf(qtd));
+            }
+        }
+    }
+} catch (IOException e) {
+    System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+    return null;  
+}
+
+
+    
+        }
 }
 
 
