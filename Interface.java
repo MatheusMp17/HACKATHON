@@ -150,6 +150,8 @@ public class Interface {
                         btnEnviarPessoa.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                Endereco endereco = new Endereco(textBairroPessoa.toString(), textRuaPessoa.toString(), Integer.parseInt(textNumeroPessoa.toString()));
+                                PessoaDoadora pessoa = new PessoaDoadora(Integer.parseInt(textCPF.toString()), endereco, textEmailPessoa.toString(), Item(Integer.parseInt(textCPF.toString()), Integer.parseInt(textCPF.toString())), );
                                 showHomeScreen("Pessoa");
                             }
                         });

@@ -1,11 +1,11 @@
 enum TipoDoacao{
-    itensDeHigiene("itens de higiene"),
-    Alimentos("alimentos"),
-    Roupas("roupas"),
-    conforto("conforto"),
-    moveis("móveis"),
+    itensDeHigiene("Itens de higiene"),
+    Alimentos("Alimentos"),
+    Roupas("Roupas"),
+    conforto("Conforto"),
+    moveis("Móveis"),
     voluntariado("Serviço voluntário"),
-    dinheiro("dinheiro");
+    dinheiro("Dinheiro");
 
     private final String nome;
     TipoDoacao(String nome) {

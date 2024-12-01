@@ -2,7 +2,11 @@ public class Endereco {
     private String bairro;
     private String rua;
     private int numero;
-
+    public Endereco(String bairro, String rua, int numero){
+        this.setBairro(bairro);
+        this.setRua(rua);
+        this.setNumero(numero);
+    }
     public Endereco(){
         this.setBairro("");
         this.setRua("");
