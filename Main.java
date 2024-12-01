@@ -1,8 +1,20 @@
 public class Main {
+import java.util.Scanner;
 
+public class Main {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int id, usuario;
+        System.out.print("Gostaria de entrar como instituição ou pessoa?\n1- pessoa\n2- instituição");
+        usuario = teclado.nextInt();
+
+        if(usuario == 1) {
+            System.out.print("Informe o seu CPF: ");
+            id = teclado.nextInt();
+            System.out.print("");
+        }
+    }
 }
-
-
 
 /*    A ferramenta tem o objetivo de facilitar a prefeitura no processo de doações e pedidos de ajuda entre doadores, vítimas e instituições. 
 O processo começa com o cadastro da pessoa ou instituições, usando números de identidade (será explicado depois), endereço e doação. A 
