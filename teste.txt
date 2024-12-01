@@ -1,0 +1,25 @@
+Cada vez mais, na atualidade, faz-se presente a problemática relativa às catástrofes climáticas e suas 
+implicações, sejam elas econômicas ou sociais. A exemplo disso, levantamentos do Banco Interamericano de 
+Desenvolvimento (BID) estimam que o prejuízo acarretado pelas enchentes no Rio Grande do Sul, em maio de 
+2024, ultrapassaram R$ 88 bilhões. Paralelamente, dados do Sebrae RS, em parceria com a Secretaria de Es-
+tado e Desenvolvimento Econômico (Sedec), revelam a falência de 35,71% dos negócios no estado, incluindo 
+micro e pequenas empresas. Ao todo, o fenômeno provocou a morte de 183 pessoas e desaparecimento de 27.
+Portanto, a fim de amenizar  situação de vulnerabilidade de grande parcela da população gaúcha, bem como 
+a sobrecarga logística do Estado, torna-se imprescindível a ação de um mecanismo de assistência às neces-
+sidades públicas e privadas provenientes de tais eventos.
+Nesse sentido, este programa visa à implementação de um sistema operacional de controle de dados voltado
+ao auxílio das prefeituras dos respectivos municípios afetados pelas enchentes ou qualquer outra futura 
+catástrofe natural. Através dele, será possível determinar, automaticamente, a quantidade necessária de
+bens para cada instituição de caridade, de modo a facilitar o processo de direcionamento de pedidos e doa-
+ções entre doadores e destinatários.
+
+FUNCIONAMENTO DO SISTEMA OPERACIONAL:
+A partir do cadastro da pessoa - física (CPF) ou jurídica (CNPJ) - será determinado o intuito do agente
+em utilizar o sistema, seja ele doar, ou receber. Em seguida, será especificado o tipo de artigo que o a-
+gente deseja doar ou receber (alimentos, produtos de limpeza, produtos para higiene etc), sendo cada tipo 
+correspondente a um número inteiro predeterminado.
+Após, serão criadas duas listas, uma para doações e outra para recepções, baseadas nas necessidades espe-
+cificadas pelos usuários. 
+Por fim, serão estabelecidas as relações lógicas de doação e recebimento entre 
+as duas listas, considerando a quantidade disponível ou não de cada artigo, bem como as localidades que 
+os requisitam.
