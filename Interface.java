@@ -56,13 +56,12 @@ public class Interface {
 
                     JLabel labelTipoPessoa = new JLabel("Doador ou Necessitado:");
                     JComboBox<String> comboTipoPessoa = new JComboBox<>(new String[]{"Informe seu estado", "Doador", "Necessitado"});
-                    JComboBox<String> comboItensNecessitados = new JComboBox<>(new String[] {
+                    JComboBox<TipoDoacao> comboItensNecessitados = new JComboBox<>(new TipoDoacao[] {
                         "Itens de higiene", "Alimentos", "Roupas", "Conforto", "Móveis", "Serviço voluntário", "Dinheiro"
                 });
                 comboItensNecessitados.setVisible(true);  // Inicialmente visível
-                JComboBox<String> comboItensDoacao = new JComboBox<>(new String[] {
-                    "Itens de higiene", "Alimentos", "Roupas", "Conforto", "Móveis", "Serviço voluntário", "Dinheiro"
-            });
+                JComboBox<TipoDoacao> comboItensDoacao = new JComboBox<>(new TipoDoacao[] {
+                    itensDeHigiene.getNome(), Alimentos.getNome(), Roupas.getNome(), conforto.getNome(), moveis.getNome(), voluntariado.getNome(), dinheiro.getNome});
             comboItensDoacao.setVisible(true);  // Inicialmente invisível
                     JTextField textCPF = new JTextField(20);
                     JTextField textCidadePessoa = new JTextField(20);
@@ -150,6 +149,7 @@ public class Interface {
                         btnEnviarPessoa.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                TipoDoacao{} comboItensDoacao.toString()
                                 Endereco endereco = new Endereco(textBairroPessoa.toString(), textRuaPessoa.toString(), Integer.parseInt(textNumeroPessoa.toString()));
                                 PessoaDoadora pessoa = new PessoaDoadora(Integer.parseInt(textCPF.toString()), endereco, textEmailPessoa.toString(), Item(Integer.parseInt(textCPF.toString()), Integer.parseInt(textCPF.toString())), );
                                 showHomeScreen("Pessoa");
