@@ -32,7 +32,24 @@ public class Main {
                         System.out.println ("Resposta inválida.")
                 }
             }while(resposta != 1 || resposta != 2);
-    }
+    
+    
+    
+       try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String id = linha;
+                String nome = reader.readLine();
+                String tipo = reader.readLine();
+                String qtd = reader.readLine();
+                              
+                }
+                
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
+        return calcados;}
 }
 
 
@@ -45,3 +62,4 @@ doadora diz os materiais que pode entregar às vítimas, enquanto a lista de ví
 os doadores e vítimas criam uma "ligação", enquanto os pedidos das vítimas que não formam uma ligação com algum doador, são notificados à 
 prefeitura
 *\
+    //fazer array para doação = falso e um array para doação = true// 
