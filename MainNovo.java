@@ -4,9 +4,9 @@ public class MainNovo {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         Item  doacao;
-        int id, usuario, num;
+        int id, usuario, num, qtd;
         String email;
-        Endereco endereco;
+        Endereco endereco = new Endereco();
         System.out.print("Gostaria de entrar como instituição ou pessoa?\n1- pessoa\n2- instituição");
         usuario = teclado.nextInt();
         
@@ -15,7 +15,7 @@ public class MainNovo {
             System.out.print("Informe o seu CPF: ");
             id = teclado.nextInt();
             
-
+            
             System.out.print("\nInforme seu Bairro: ");
             endereco.setBairro(teclado.next());
             System.out.print("\nInforme seu Rua: ");
@@ -34,7 +34,7 @@ public class MainNovo {
                 "informe suas necessidades: \n"
                 +"[1]Itens de higiene"
                 +"[2]Alimentos"
-                +"[3]roupas"
+                +"[3]Roupas"
                 +"[4]Conforto"
                 +"[5]Móveis"
                 +"[6]Serviço voluntário"
@@ -42,32 +42,45 @@ public class MainNovo {
                 num = teclado.nextInt();
                 switch (num) {
                     case 1:
-                        doacao.setTipo(TipoDoacao.itensDeHigiene);
+                        System.out.println("Informe a quantididade de recursos do tipo itens de higiene que você está disposto a doar");   
+                        qtd = teclado.nextInt();
+                        doacao  = new Item(id, TipoDoacao.itensDeHigiene.getNome(),TipoDoacao.itensDeHigiene, qtd,  false);
                         break;
                     case 2:
-                        doacao.setTipo(TipoDoacao.Alimentos);
+                        System.out.println("Informe a quantididade de recursos do tipo alimentos que você está disposto a doar");   
+                        qtd = teclado.nextInt();
+                        doacao  = new Item(id, TipoDoacao.Alimentos.getNome(),TipoDoacao.Alimentos, qtd,  false);
                         break;
                     case 3:
-                        doacao.setTipo(TipoDoacao.Roupas);
+                        System.out.println("Informe a quantididade de recursos do tipo dinheiro que você está disposto a doar");   
+                        qtd = teclado.nextInt();
+                        doacao  = new Item(id, TipoDoacao.dinheiro.getNome(),TipoDoacao.dinheiro, qtd,  false);
                         break;
                     case 4:
-                        doacao.setTipo(TipoDoacao.conforto);
+                        System.out.println("Informe a quantididade de recursos do tipo dinheiro que você está disposto a doar");   
+                        qtd = teclado.nextInt();
+                        doacao  = new Item(id, TipoDoacao.dinheiro.getNome(),TipoDoacao.dinheiro, qtd,  false);
                         break;
                     case 5:
-                        doacao.setTipo(TipoDoacao.moveis); 
+                        System.out.println("Informe a quantididade de recursos do tipo dinheiro que você está disposto a doar");   
+                        qtd = teclado.nextInt();
+                        doacao  = new Item(id, TipoDoacao.dinheiro.getNome(),TipoDoacao.dinheiro, qtd,  false); 
                         break;
                     case 6:
-                        doacao.setTipo(TipoDoacao.voluntariado);
+                        System.out.println("Informe a quantididade de recursos do tipo dinheiro que você está disposto a doar");   
+                        qtd = teclado.nextInt();
+                        doacao  = new Item(id, TipoDoacao.dinheiro.getNome(),TipoDoacao.dinheiro, qtd,  false);
                         break;
                     case 7:
-                        doacao.setTipo(TipoDoacao.dinheiro);
+                        System.out.println("Informe a quantididade de recursos do tipo dinheiro que você está disposto a doar");   
+                        qtd = teclado.nextInt();
+                        doacao  = new Item(id, TipoDoacao.dinheiro.getNome(),TipoDoacao.dinheiro, qtd,  false);
                         break;            
                     default:
                         break;
                 }
 
-                
-                    PessoaVitima pessoaVitima = new PessoaVitima(id, endereco, email, doacao);
+                 PessoaVitima pessoaVitima = new PessoaVitima(id, endereco, email, doacao);
                     break;
             
                 default:

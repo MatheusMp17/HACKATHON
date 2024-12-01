@@ -1,6 +1,7 @@
 public class PessoaVitima extends Pessoa{
     private Item doacao;
-    private PessoaVitima(int id, Endereco enderecoPessoa, String email, Item doacao) {
+    
+    public PessoaVitima(int id, Endereco enderecoPessoa, String email, Item doacao) {
         super(id, enderecoPessoa, email);
         setDoacao(doacao);
     }
