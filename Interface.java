@@ -1,11 +1,11 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class Interface {
+    private static JFrame frame;
+    private static JPanel mainPanel;
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -13,17 +13,15 @@ public class Interface {
             e.printStackTrace();
         }
 
-        JFrame frame = new JFrame("Formulário de Cadastro");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(470, 720);
+        frame = getFrame();
+        showLoginScreen();
+    }
 
-        JPanel mainPanel = new JPanel(new GridBagLayout());
+    // Tela de Login ou Cadastro
+    private static void showLoginScreen() {
+        mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(Color.decode("#f0f0f0"));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 10, 5, 10);
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        GridBagConstraints gbc = getGbc();
 
         JPanel formContainer = new JPanel(new GridBagLayout());
         formContainer.setBackground(Color.WHITE);
@@ -41,54 +39,38 @@ public class Interface {
         gbc.weighty = 0;
         formContainer.add(labelTipoUsuario, gbc);
 
-        String[] tiposUsuario = {"Escolha uma opção!!","Pessoa", "Instituição"};
-        JComboBox<String> comboTipoUsuario = new JComboBox<>(tiposUsuario);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        formContainer.add(comboTipoUsuario, gbc);
-
-        JLabel labelTipoPessoa = new JLabel("Doador ou Necessitado:");
-        JTextField textCPF = new JTextField(20);
-        JComboBox<String> comboTipoPessoa = new JComboBox<>(new String[]{"Doador", "Necessitado"});
-        JLabel labelCidadePessoa = new JLabel("Cidade");
-        JTextField textCidadePessoa = new JTextField(20);
-        JLabel labelBairroPessoa = new JLabel("Bairro");
-        JTextField textBairroPessoa = new JTextField(20);
-        JLabel labelRuaPessoa = new JLabel("Rua");
-        JTextField textRuaPessoa = new JTextField(20);
-        JLabel labelNumeroPessoa = new JLabel("Número");
-        JTextField textNumeroPessoa = new JTextField(20);
-        JLabel labelEmailPessoa = new JLabel("Email");
-        JTextField textEmailPessoa = new JTextField(20);
-
-        JTextField textCNPJ = new JTextField(20);
-        JLabel labelCidadeInstituicao = new JLabel("Cidade");
-        JTextField textCidadeInstituicao = new JTextField(20);
-        JLabel labelBairroInstituicao = new JLabel("Bairro");
-        JTextField textBairroInstituicao = new JTextField(20);
-        JLabel labelRuaInstituicao = new JLabel("Rua:");
-        JTextField textRuaInstituicao = new JTextField(20);
-        JLabel labelNumeroInstituicao = new JLabel("Número");
-        JTextField textNumeroInstituicao = new JTextField(20);
-        JLabel labelItensInstituicao = new JLabel("Itens Necessitados");
-        JTextField textItensInstituicao = new JTextField(20);
-        JLabel labelEmailInstituicao = new JLabel("Email");
-        JTextField textEmailInstituicao = new JTextField(20);
-
+        JComboBox<String> comboTipoUsuario = cobTipoUsuario(gbc, formContainer);
         comboTipoUsuario.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String tipoUsuario = (String) e.getItem();
-                    formContainer.removeAll();
+                    formContainer.removeAll(); // Remove todos os componentes antes de adicionar novos
+
                     gbc.gridx = 0;
                     gbc.gridy = 0;
-                    gbc.weightx = 0;
-                    gbc.weighty = 0;
                     formContainer.add(labelTipoUsuario, gbc);
                     gbc.gridx = 0;
                     gbc.gridy = 1;
                     formContainer.add(comboTipoUsuario, gbc);
+
+                    JLabel labelTipoPessoa = new JLabel("Doador ou Necessitado:");
+                    JComboBox<String> comboTipoPessoa = new JComboBox<>(new String[]{"Informe seu estado", "Doador", "Necessitado"});
+                    JComboBox<String> comboItensNecessitados = new JComboBox<>(new String[] {
+                        "Itens de higiene", "Alimentos", "Roupas", "Conforto", "Móveis", "Serviço voluntário", "Dinheiro"
+                });
+                comboItensNecessitados.setVisible(true);  // Inicialmente visível
+                JComboBox<String> comboItensDoacao = new JComboBox<>(new String[] {
+                    "Itens de higiene", "Alimentos", "Roupas", "Conforto", "Móveis", "Serviço voluntário", "Dinheiro"
+            });
+            comboItensDoacao.setVisible(true);  // Inicialmente invisível
+                    JTextField textCPF = new JTextField(20);
+                    JTextField textCidadePessoa = new JTextField(20);
+                    JTextField textBairroPessoa = new JTextField(20);
+                    JTextField textRuaPessoa = new JTextField(20);
+                    JTextField textNumeroPessoa = new JTextField(20);
+                    JTextField textEmailPessoa = new JTextField(20);
+                    
 
                     if (tipoUsuario.equals("Pessoa")) {
                         gbc.gridx = 0;
@@ -107,73 +89,80 @@ public class Interface {
 
                         gbc.gridx = 0;
                         gbc.gridy = 6;
-                        formContainer.add(labelCidadePessoa, gbc);
+                        formContainer.add(new JLabel("Cidade"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 7;
                         formContainer.add(textCidadePessoa, gbc);
 
                         gbc.gridx = 0;
                         gbc.gridy = 8;
-                        formContainer.add(labelBairroPessoa, gbc);
+                        formContainer.add(new JLabel("Bairro"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 9;
                         formContainer.add(textBairroPessoa, gbc);
 
                         gbc.gridx = 0;
                         gbc.gridy = 10;
-                        formContainer.add(labelRuaPessoa, gbc);
+                        formContainer.add(new JLabel("Rua"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 11;
                         formContainer.add(textRuaPessoa, gbc);
 
                         gbc.gridx = 0;
                         gbc.gridy = 12;
-                        formContainer.add(labelNumeroPessoa, gbc);
+                        formContainer.add(new JLabel("Número"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 13;
                         formContainer.add(textNumeroPessoa, gbc);
 
                         gbc.gridx = 0;
                         gbc.gridy = 14;
-                        formContainer.add(labelEmailPessoa, gbc);
+                        formContainer.add(new JLabel("Email"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 15;
                         formContainer.add(textEmailPessoa, gbc);
 
-                        gbc.gridy = 16; 
-                        JButton btnEnviarPessoa = new JButton("Enviar");
+                        // Mostrar a categoria "Itens de doação" somente se o tipo de pessoa for "Doador"
+                        comboTipoPessoa.addItemListener(new ItemListener() {
+                            @Override
+                            public void itemStateChanged(ItemEvent e) {
+                                if (comboTipoPessoa.getSelectedItem().equals("Doador")) {
+                                    comboItensDoacao.setVisible(true);
+                                    gbc.gridx = 0;
+                                    gbc.gridy = 16;
+                                    formContainer.add(new JLabel("Itens de doação:"), gbc);
+                                    gbc.gridx = 0;
+                                    gbc.gridy = 17;
+                                    formContainer.add(comboItensDoacao, gbc);
+                                } else {
+                                    comboItensDoacao.setVisible(true);  
+                                }
+                                formContainer.revalidate();
+                                formContainer.repaint();
+                            }
+                        });
+
+                        JButton btnEnviarPessoa = new JButton("Cadastrar");
                         gbc.gridx = 0;
+                        gbc.gridy = 18;
                         formContainer.add(btnEnviarPessoa, gbc);
 
                         btnEnviarPessoa.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                String tipoPessoa = (String) comboTipoPessoa.getSelectedItem();
-                                if (tipoPessoa.equals("Doador")) {
-                                    JFrame instituicoesFrame = new JFrame("Instituições e Suprimentos");
-                                    instituicoesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                                    instituicoesFrame.setSize(500, 600);
-
-                                    String[][] instituicoesDados = {
-                                            {"Instituição 1", "Alimentos, Roupas"},
-                                            {"Instituição 2", "Medicamentos, Livros"},
-                                            {"Instituição 3", "Produtos de Higiene, Brinquedos"}
-                                    };
-
-                                    String[] colunas = {"Instituição", "Necessidades"};
-                                    JTable tabelaInstituicoes = new JTable(instituicoesDados, colunas);
-                                    JScrollPane scrollPane = new JScrollPane(tabelaInstituicoes);
-
-                                    instituicoesFrame.add(scrollPane);
-                                    instituicoesFrame.setVisible(true);
-                                    frame.dispose();
-                                } else {
-                                    JOptionPane.showMessageDialog(frame, "Cadastro concluído com sucesso!");
-                                }
+                                showHomeScreen("Pessoa");
                             }
                         });
 
                     } else if (tipoUsuario.equals("Instituição")) {
+                        JTextField textCNPJ = new JTextField(20);
+                        JTextField textCidadeInstituicao = new JTextField(20);
+                        JTextField textBairroInstituicao = new JTextField(20);
+                        JTextField textRuaInstituicao = new JTextField(20);
+                        JTextField textNumeroInstituicao = new JTextField(20);
+                        JTextField textItensInstituicao = new JTextField(20);
+                        JTextField textEmailInstituicao = new JTextField(20);
+
                         gbc.gridx = 0;
                         gbc.gridy = 2;
                         formContainer.add(new JLabel("CNPJ"), gbc);
@@ -183,59 +172,59 @@ public class Interface {
 
                         gbc.gridx = 0;
                         gbc.gridy = 4;
-                        formContainer.add(labelCidadeInstituicao, gbc);
+                        formContainer.add(new JLabel("Cidade"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 5;
                         formContainer.add(textCidadeInstituicao, gbc);
 
                         gbc.gridx = 0;
                         gbc.gridy = 6;
-                        formContainer.add(labelBairroInstituicao, gbc);
+                        formContainer.add(new JLabel("Bairro"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 7;
                         formContainer.add(textBairroInstituicao, gbc);
 
                         gbc.gridx = 0;
                         gbc.gridy = 8;
-                        formContainer.add(labelRuaInstituicao, gbc);
+                        formContainer.add(new JLabel("Rua"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 9;
                         formContainer.add(textRuaInstituicao, gbc);
 
                         gbc.gridx = 0;
                         gbc.gridy = 10;
-                        formContainer.add(labelNumeroInstituicao, gbc);
+                        formContainer.add(new JLabel("Número"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 11;
                         formContainer.add(textNumeroInstituicao, gbc);
 
                         gbc.gridx = 0;
                         gbc.gridy = 12;
-                        formContainer.add(labelItensInstituicao, gbc);
+                        formContainer.add(new JLabel("Itens Necessitados"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 13;
-                        formContainer.add(textItensInstituicao, gbc);
+                        formContainer.add(comboItensNecessitados, gbc);
+                        
 
                         gbc.gridx = 0;
                         gbc.gridy = 14;
-                        formContainer.add(labelEmailInstituicao, gbc);
+                        formContainer.add(new JLabel("Email"), gbc);
                         gbc.gridx = 0;
                         gbc.gridy = 15;
                         formContainer.add(textEmailInstituicao, gbc);
 
-                        gbc.gridy = 16; 
-                        JButton btnEnviarInstituicao = new JButton("Enviar");
+                        JButton btnEnviarInstituicao = new JButton("Cadastrar");
                         gbc.gridx = 0;
+                        gbc.gridy = 16;
                         formContainer.add(btnEnviarInstituicao, gbc);
-
                         btnEnviarInstituicao.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                JOptionPane.showMessageDialog(frame, "Cadastro de instituição concluído com sucesso!");
+                                showHomeScreen("Instituição");
                             }
                         });
                     }
-
+                    
                     formContainer.revalidate();
                     formContainer.repaint();
                 }
@@ -245,5 +234,91 @@ public class Interface {
         JScrollPane scrollPane = new JScrollPane(mainPanel);
         frame.add(scrollPane);
         frame.setVisible(true);
+    }
+
+    private static JComboBox<String> cobTipoUsuario(GridBagConstraints gbc, JPanel formContainer) {
+        String[] tiposUsuario = {"Escolha uma opção!!", "Pessoa", "Instituição"};
+        JComboBox<String> comboTipoUsuario = new JComboBox<>(tiposUsuario);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formContainer.add(comboTipoUsuario, gbc);
+        return comboTipoUsuario;
+    }
+
+    private static void showHomeScreen(String tipoUsuario) {
+        mainPanel.removeAll();
+        
+        GridBagConstraints gbc = getGbc();
+        JPanel homePanel = new JPanel(new GridBagLayout());
+        homePanel.setBackground(Color.decode("#f0f0f0"));
+
+        JLabel welcomeLabel = new JLabel("Bem-vindo, " + tipoUsuario + "!");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        homePanel.add(welcomeLabel, gbc);
+
+        // Opções de doação ou visualização de itens
+        JButton btnDoar = new JButton("Doar para Instituições");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        homePanel.add(btnDoar, gbc);
+
+        JButton btnVerItens = new JButton("Ver itens necessários das Instituições");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        homePanel.add(btnVerItens, gbc);
+
+        JButton btnSair = new JButton("Sair da conta");
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        homePanel.add(btnSair, gbc);
+
+        // Ações
+        btnDoar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(frame, "Opção de Doar selecionada!");
+            }
+        });
+
+        btnVerItens.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(frame, "Exibindo itens necessários!");
+            }
+        });
+
+        btnSair.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Remove todos os componentes do painel atual e exibe a tela de login novamente
+                frame.getContentPane().removeAll(); // Remove todos os componentes
+                frame.revalidate();  // Revalida o layout
+                frame.repaint();  // Redesenha a tela
+                showLoginScreen();  // Chama a tela de login
+                System.exit(0);
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(homePanel);
+        frame.setContentPane(scrollPane);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private static GridBagConstraints getGbc() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        return gbc;
+    }
+
+    private static JFrame getFrame() {
+        JFrame frame = new JFrame("Sistema de Doações");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(470, 720);
+        return frame;
     }
 }
