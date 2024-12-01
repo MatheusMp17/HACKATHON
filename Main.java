@@ -1,34 +1,22 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Item item = new Item();
-
-       // leitor();
-    }
-
-    public static void leitor() throws IOException {
-        Scanner teclado = new Scanner(System.in);
-        Item receptor;
-        Item doador;
-        ArrayList<Item> Doadores = new ArrayList<>();
-        ArrayList<Item> Receptores = new ArrayList<>();
-
+        ArrayList<Item> doadores = new ArrayList<>();
+        ArrayList<Item> receptores = new ArrayList<>();
 
         Item doacao1 = new Item(1,"Camille",TipoDoacao.Roupas,5,true);
         Item doacao2 = new Item(2,"Matheus",TipoDoacao.Alimentos,15,true);
         Item doacao3 = new Item(3,"Samuel",TipoDoacao.dinheiro,5000,true);
         Item doacao4 = new Item(4,"Bruno",TipoDoacao.voluntariado,24,true);
 
-        Doadores.add(doacao1);
-        Doadores.add(doacao2);
-        Doadores.add(doacao3);
-        Doadores.add(doacao4);
-
+        doadores.add(doacao1);
+        doadores.add(doacao2);
+        doadores.add(doacao3);
+        doadores.add(doacao4);
 
         Item recep1 = new Item(1,"Luis",TipoDoacao.Roupas,2,false);
         Item recep2 = new Item(2,"Henrique",TipoDoacao.Alimentos,8,false);
@@ -36,15 +24,34 @@ public class Main {
         Item recep4 = new Item(4,"Thomas",TipoDoacao.conforto,10,false);
 
 
-        Receptores.add(recep1);
-        Receptores.add(recep2);
-        Receptores.add(recep3);
-        Receptores.add(recep4);
+        receptores.add(recep1);
+        receptores.add(recep2);
+        receptores.add(recep3);
+        receptores.add(recep4);     
 
-        Item.escritaDeArquivo(Doadores);
-        Item.escritaDeArquivo(Receptores);
+   
+        escritaDeArquivo(doadores, "doadores.txt" );
+        escritaDeArquivo(receptores, "receptores.txt" );
+    }
 
+    public static void escritaDeArquivo(ArrayList< Item > itens, String nomeArquivo) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo));
        
+        for (Item item: itens) {
+            try {
+                
+                writer.write(item.toString());
+                writer.newLine();
+                System.out.println("Itens salvos com sucesso no arquivo ");
+                
+            } catch (IOException e) {
+                System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+            }       
+          
+        }
+        writer.close();
+
+   
 
       /*   try (BufferedReader reader = new BufferedReader(new FileReader("arquivo1.txt"))) {
             String linha;
@@ -104,11 +111,10 @@ public class Main {
             }
 
         }*/
-
-    
+    }
 
 }
-}
+
 /*
  * A ferramenta tem o objetivo de facilitar a prefeitura no processo de doações
  * e pedidos de ajuda entre doadores, vítimas e instituições.

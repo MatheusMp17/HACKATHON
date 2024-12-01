@@ -1,7 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Item {
     private boolean doacao;
@@ -16,6 +12,7 @@ public class Item {
         setNome(nome);
         setQtd(qtd);
         setTipo(tipoDoacao);
+        setDoacao(doacao);
     }
 
     public int getId() {
@@ -53,47 +50,15 @@ public class Item {
         this.doacao = doacao;
     }
 
+    public boolean isDoacao() {
+        return doacao;
+    }
+
 
     @Override
     public String toString() {
         return (getDoacao() + "\n" + getId() + "\n" + getNome() + "\n" + getTipo() + "\n" + getQtd());
     }
-
-    public static void escritaDeArquivo(ArrayList< Item > itens) throws IOException {
-        BufferedWriter writerDoad = new BufferedWriter(new FileWriter("doacoes.txt"));
-        BufferedWriter writerRecep = new BufferedWriter(new FileWriter("receptores.txt"));
-        for (Item item: itens) {
-            if(item.doacao){
-                try {
-                    
-                    writerDoad.write(item.toString());
-                    writerDoad.newLine();
-                    System.out.println("Itens salvos com sucesso no arquivo ");
-                   
-                } catch (IOException e) {
-                    System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
-                }
-              
-
-            } else {
-                try  {
-                    writerRecep.write(item.toString());
-                    writerRecep.newLine();
-                    System.out.println("Itens salvos com sucesso no arquivo ");
-                } catch (IOException e) {
-                    System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
-                }
-               
-            }
-
-
-          
-          
-        }
-       
-    }
-
-
 }
         
       
