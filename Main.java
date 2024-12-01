@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Item item = new Item();
+
         leitor();
            }
      public static void leitor(){
@@ -18,7 +20,7 @@ ArrayList<Item> Receptores = new ArrayList<>();
 try (BufferedReader reader = new BufferedReader(new FileReader("arquivo1.txt"))) {
     String linha;
 
-    while ((linha = reader.readLine()) != null) {
+   do{
         String doacao = reader.readLine();
 
         if (Boolean.valueOf(doacao)) {
@@ -30,6 +32,7 @@ try (BufferedReader reader = new BufferedReader(new FileReader("arquivo1.txt")))
                 String tipo = reader.readLine();
                 String qtd = reader.readLine();
                 doador = new Item();
+                doador.setDoacao(Boolean.valueOf(doacao));
                 doador.setId(Integer.valueOf(id));
                 doador.setNome(nome);
                 doador.setTipo(TipoDoacao.valueOf(tipo));
@@ -37,12 +40,13 @@ try (BufferedReader reader = new BufferedReader(new FileReader("arquivo1.txt")))
                 Doadores.add(doador);
         }
 
-        if (!Boolean.valueOf(doacao)) { 
+        else if (!Boolean.valueOf(doacao)) { 
                 String id = reader.readLine();
                 String nome = reader.readLine();
                 String tipo = reader.readLine();
                 String qtd = reader.readLine();
                 receptor = new Item();
+                receptor.setDoacao(Boolean.valueOf(doacao));
                 receptor.setId(Integer.valueOf(id));
                 receptor.setNome(nome);
                 receptor.setTipo(TipoDoacao.valueOf(tipo));  
@@ -50,7 +54,8 @@ try (BufferedReader reader = new BufferedReader(new FileReader("arquivo1.txt")))
         
             Receptores.add(new Item());
         }
-    }
+    } while ((linha = reader. readLine()) != null);
+    System.out.println(Receptores.get(0));
     } catch (IOException e) {
     System.err.println("Erro ao ler o arquivo: " + e.getMessage());  
     }

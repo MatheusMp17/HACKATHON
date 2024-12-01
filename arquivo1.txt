@@ -1,5 +1,5 @@
 false
 1
 ge
-Alimento
+dinheiro
 10

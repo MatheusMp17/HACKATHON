@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class MainNovo {
     // pede informaçoes, escolher entre pedir e ajudar, 
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
+      /*  Scanner teclado = new Scanner(System.in);
         Item  doacao;
         int id, usuario, num, qtd;
         String email;
@@ -86,7 +86,7 @@ public class MainNovo {
                 default:
                     break;
             }
-        }
+        }*/
     }
 }
 
