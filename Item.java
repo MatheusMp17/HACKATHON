@@ -10,6 +10,9 @@ public class Item {
     private TipoDoacao tipo;
     private int qtd;
     
+    public Item(){
+        
+    }
     public Item(int id, String nome, TipoDoacao tipoDoacao, int qtd, boolean doacao){
         setId(id);
         setNome(nome);
