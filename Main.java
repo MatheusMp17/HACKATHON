@@ -1,6 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -32,6 +30,21 @@ public class Main {
    
         escritaDeArquivo(doadores, "doadores.txt" );
         escritaDeArquivo(receptores, "receptores.txt" );
+
+        receptores.clear();
+        doadores.clear();
+
+        doadores = leituraDeArquivo("doadores.txt");
+        //receptores = leituraDeArquivo("receptores.txt");
+
+        for (Item doador : doadores) {
+                System.out.println(doador);
+        }
+
+        for (Item receptor : receptores) {
+                System.out.println(receptor);
+        }
+        
     }
 
     public static void escritaDeArquivo(ArrayList< Item > itens, String nomeArquivo) throws IOException {
@@ -51,8 +64,40 @@ public class Main {
         }
         writer.close();
 
-   
+    }
 
+
+    public static ArrayList<Item> leituraDeArquivo(String nomeArquivo) throws IOException {
+        ArrayList<Item> itens = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
+            String linha, id, nome, tipo, qtd;
+            Item item;
+
+            /*
+             * bool
+             * int
+             * string
+             * enum
+             * int
+             */
+            while ((linha = reader.readLine()) != null){
+                item = new Item();
+                item.setDoacao(Boolean.valueOf(linha));
+                linha = reader.readLine();
+                item.setId(Integer.valueOf(linha));
+                linha = reader.readLine();
+                item.setNome(linha);
+                linha = reader.readLine();
+                item.setTipo(TipoDoacao.valueOf(linha));
+                linha = reader.readLine();
+                item.setQtd(Integer.valueOf(linha));
+                itens.add(item);
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
+        return itens;
+    }
       /*   try (BufferedReader reader = new BufferedReader(new FileReader("arquivo1.txt"))) {
             String linha;
 
@@ -111,7 +156,7 @@ public class Main {
             }
 
         }*/
-    }
+    
 
 }
 
