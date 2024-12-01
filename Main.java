@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Item item = new Item();
 
-        leitor();
+       // leitor();
     }
 
-    public static void leitor() {
+    public static void leitor() throws IOException {
         Scanner teclado = new Scanner(System.in);
         Item receptor;
         Item doador;

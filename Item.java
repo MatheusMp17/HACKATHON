@@ -59,36 +59,38 @@ public class Item {
         return (getDoacao() + "\n" + getId() + "\n" + getNome() + "\n" + getTipo() + "\n" + getQtd());
     }
 
-    public static void escritaDeArquivo(ArrayList< Item > itens) {
+    public static void escritaDeArquivo(ArrayList< Item > itens) throws IOException {
+        BufferedWriter writerDoad = new BufferedWriter(new FileWriter("doacoes.txt"));
+        BufferedWriter writerRecep = new BufferedWriter(new FileWriter("receptores.txt"));
         for (Item item: itens) {
             if(item.doacao){
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("doacoes.txt"))) {
+                try {
                     
-                    writer.write(item.toString());
-                    writer.newLine();
+                    writerDoad.write(item.toString());
+                    writerDoad.newLine();
                     System.out.println("Itens salvos com sucesso no arquivo ");
-                    writer.close();
+                   
                 } catch (IOException e) {
                     System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
                 }
               
 
             } else {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("receptores.txt"))) {
-                    writer.write(item.toString());
-                        writer.newLine();
+                try  {
+                    writerRecep.write(item.toString());
+                    writerRecep.newLine();
                     System.out.println("Itens salvos com sucesso no arquivo ");
-                    writer.close();
                 } catch (IOException e) {
                     System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
                 }
-
+               
             }
 
 
-
+          
           
         }
+       
     }
 
 
