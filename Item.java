@@ -57,7 +57,8 @@ public class Item {
     public String toString() {
         return (getDoacao() + "\n" + getId() + "\n" + getNome() + "\n" + getTipo() + "\n" + getQtd());
     }
-    public static void escritaDeArquivo(String nomeArquivo, ArrayList< Item > itens) {
+
+   public static void escritaDeArquivo(String nomeArquivo, ArrayList< Item > itens) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo))) {
             for (Item item: itens) {
                 writer.write(item.toString());
