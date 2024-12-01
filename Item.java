@@ -10,9 +10,7 @@ public class Item {
     private TipoDoacao tipo;
     private int qtd;
     
-    public Item(){
-        
-    }
+    public Item(){}
     public Item(int id, String nome, TipoDoacao tipoDoacao, int qtd, boolean doacao){
         setId(id);
         setNome(nome);
@@ -61,7 +59,44 @@ public class Item {
         return (getDoacao() + "\n" + getId() + "\n" + getNome() + "\n" + getTipo() + "\n" + getQtd());
     }
 
-   public static void escritaDeArquivo(String nomeArquivo, ArrayList< Item > itens) {
+    public static void escritaDeArquivo(ArrayList< Item > itens) {
+        for (Item item: itens) {
+            if(item.doacao){
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("doacoes.txt"))) {
+                    
+                    writer.write(item.toString());
+                    writer.newLine();
+                    System.out.println("Itens salvos com sucesso no arquivo ");
+                    writer.close();
+                } catch (IOException e) {
+                    System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+                }
+              
+
+            } else {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("receptores.txt"))) {
+                    writer.write(item.toString());
+                        writer.newLine();
+                    System.out.println("Itens salvos com sucesso no arquivo ");
+                    writer.close();
+                } catch (IOException e) {
+                    System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
+                }
+
+            }
+
+
+
+          
+        }
+    }
+
+
+}
+        
+      
+
+   /*public static void escritaDeArquivo(String nomeArquivo, ArrayList< Item > itens) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo))) {
             for (Item item: itens) {
                 writer.write(item.toString());
@@ -71,5 +106,5 @@ public class Item {
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
         }
-    }
-}
+    }*/
+
