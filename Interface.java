@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Interface {
@@ -56,12 +59,12 @@ public class Interface {
 
                     JLabel labelTipoPessoa = new JLabel("Doador ou Necessitado:");
                     JComboBox<String> comboTipoPessoa = new JComboBox<>(new String[]{"Informe seu estado", "Doador", "Necessitado"});
-                    JComboBox<TipoDoacao> comboItensNecessitados = new JComboBox<>(new TipoDoacao[] {
+                    JComboBox<String> comboItensNecessitados = new JComboBox<>(new String[] {
                         "Itens de higiene", "Alimentos", "Roupas", "Conforto", "Móveis", "Serviço voluntário", "Dinheiro"
                 });
                 comboItensNecessitados.setVisible(true);  // Inicialmente visível
-                JComboBox<TipoDoacao> comboItensDoacao = new JComboBox<>(new TipoDoacao[] {
-                    itensDeHigiene.getNome(), Alimentos.getNome(), Roupas.getNome(), conforto.getNome(), moveis.getNome(), voluntariado.getNome(), dinheiro.getNome});
+                JComboBox<String> comboItensDoacao = new JComboBox<>(new String[] {
+                    TipoDoacao.itensDeHigiene.getNome(), TipoDoacao.Alimentos.getNome(), TipoDoacao.Roupas.getNome(), TipoDoacao.conforto.getNome(), TipoDoacao.moveis.getNome(), TipoDoacao.voluntariado.getNome(), TipoDoacao.dinheiro.getNome()});
             comboItensDoacao.setVisible(true);  // Inicialmente invisível
                     JTextField textCPF = new JTextField(20);
                     JTextField textCidadePessoa = new JTextField(20);
@@ -69,6 +72,7 @@ public class Interface {
                     JTextField textRuaPessoa = new JTextField(20);
                     JTextField textNumeroPessoa = new JTextField(20);
                     JTextField textEmailPessoa = new JTextField(20);
+                    //JSpinner spinnerQtdPessoa = new JSpinner(20);
                     
 
                     if (tipoUsuario.equals("Pessoa")) {
@@ -125,7 +129,6 @@ public class Interface {
                         comboTipoPessoa.addItemListener(new ItemListener() {
                             @Override
                             public void itemStateChanged(ItemEvent e) {
-                                if (comboTipoPessoa.getSelectedItem().equals("Doador")) {
                                     comboItensDoacao.setVisible(true);
                                     gbc.gridx = 0;
                                     gbc.gridy = 16;
@@ -133,9 +136,7 @@ public class Interface {
                                     gbc.gridx = 0;
                                     gbc.gridy = 17;
                                     formContainer.add(comboItensDoacao, gbc);
-                                } else {
-                                    comboItensDoacao.setVisible(true);  
-                                }
+
                                 formContainer.revalidate();
                                 formContainer.repaint();
                             }
@@ -149,9 +150,19 @@ public class Interface {
                         btnEnviarPessoa.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                TipoDoacao{} comboItensDoacao.toString()
+                                
                                 Endereco endereco = new Endereco(textBairroPessoa.toString(), textRuaPessoa.toString(), Integer.parseInt(textNumeroPessoa.toString()));
-                                PessoaDoadora pessoa = new PessoaDoadora(Integer.parseInt(textCPF.toString()), endereco, textEmailPessoa.toString(), Item(Integer.parseInt(textCPF.toString()), Integer.parseInt(textCPF.toString())), );
+                                Item doacao = new Item( Integer.parseInt(textCPF.toString()), textEmailPessoa.toString(), TipoDoacao.testeTipoDoacao(comboItensDoacao.toString()), 1, true); 
+                                // qtd proviósriamente pré settada para um enquanto não hover o Jspinner para para informar a qtd.
+                                ArrayList<Item> a = new ArrayList();
+                                a.add(doacao);
+                                try {
+                                    Main.escritaDeArquivo(a, "arquivoTesteDoacao");
+                                } catch (IOException e1) {
+                                    // TODO Auto-generated catch block
+                                    e1.printStackTrace();
+                                }
+                                PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.toString()), endereco, textEmailPessoa.toString(), doacao);
                                 showHomeScreen("Pessoa");
                             }
                         });
