@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class Interface {
+    private static ArrayList<Item> arrayProvisorio = new ArrayList<>();
     private static JFrame frame;
     private static JPanel mainPanel;
 
@@ -151,19 +152,21 @@ public class Interface {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 
-                                Endereco endereco = new Endereco(textBairroPessoa.toString(), textRuaPessoa.toString(), Integer.parseInt(textNumeroPessoa.toString()));
-                                Item doacao = new Item( Integer.parseInt(textCPF.toString()), textEmailPessoa.toString(), TipoDoacao.testeTipoDoacao(comboItensDoacao.toString()), 1, true); 
-                                // qtd proviósriamente pré settada para um enquanto não hover o Jspinner para para informar a qtd.
-                                ArrayList<Item> a = new ArrayList();
-                                a.add(doacao);
-                                try {
-                                    Main.escritaDeArquivo(a, "arquivoTesteDoacao");
-                                } catch (IOException e1) {
-                                    // TODO Auto-generated catch block
-                                    e1.printStackTrace();
-                                }
-                                PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.toString()), endereco, textEmailPessoa.toString(), doacao);
-                                showHomeScreen("Pessoa");
+                                Endereco endereco = new Endereco(textBairroPessoa.getText(), textRuaPessoa.getText(), Integer.parseInt(textNumeroPessoa.getText()));
+                                Item doacao = new Item(1, "", TipoDoacao.Alimentos,  1, true); 
+                                PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.getText()), endereco, textEmailPessoa.getText(), doacao);
+                                
+                                // qtd proviósriamente pré settada para 1, enquanto não hover o Jspinner para para informar a qtd.
+            
+                                arrayProvisorio.add(doacao);
+                                
+                                    try {
+                                        Main.escritaDeArquivo(arrayProvisorio, "arquivoTesteDoacao");
+                                    } catch (IOException e1) {
+                                        // TODO Auto-generated catch block
+                                        e1.printStackTrace();
+                                    }
+            
                             }
                         });
 

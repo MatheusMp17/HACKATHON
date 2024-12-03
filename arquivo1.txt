@@ -1,5 +1,0 @@
-false
-1
-ge
-dinheiro
-10
