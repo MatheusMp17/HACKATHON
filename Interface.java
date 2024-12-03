@@ -152,20 +152,15 @@ public class Interface {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 
-                                Endereco endereco = new Endereco(textBairroPessoa.getText(), textRuaPessoa.getText(), Integer.parseInt(textNumeroPessoa.getText()));
+                                Endereco endereco = new Endereco(textBairroPessoa.getText().toString(), textRuaPessoa.getText().toString(), Integer.parseInt(textNumeroPessoa.getText().toString()));
                                 Item doacao = new Item(1, "", TipoDoacao.Alimentos,  1, true); 
-                                PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.getText()), endereco, textEmailPessoa.getText(), doacao);
+                                PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.getText().toString()), endereco, textEmailPessoa.getText().toString(), doacao);
                                 
                                 // qtd proviósriamente pré settada para 1, enquanto não hover o Jspinner para para informar a qtd.
             
                                 arrayProvisorio.add(doacao);
                                 
-                                    try {
-                                        Main.escritaDeArquivo(arrayProvisorio, "arquivoTesteDoacao");
-                                    } catch (IOException e1) {
-                                        // TODO Auto-generated catch block
-                                        e1.printStackTrace();
-                                    }
+                                    Item.escritaDeArquivo("tipoUsuario.txt", arrayProvisorio);
             
                             }
                         });

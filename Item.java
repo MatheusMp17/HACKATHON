@@ -96,11 +96,11 @@ public class Item {
         writer.close();
     }
 
-}
+
         
       
 
-   /*public static void escritaDeArquivo(String nomeArquivo, ArrayList< Item > itens) {
+   public static void escritaDeArquivo(String nomeArquivo, ArrayList< Item > itens) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo))) {
             for (Item item: itens) {
                 writer.write(item.toString());
@@ -110,5 +110,6 @@ public class Item {
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
         }
-    }*/
+    }    
+}
 
