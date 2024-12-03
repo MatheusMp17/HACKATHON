@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class Interface {
-    private static ArrayList<Item> arrayProvisorio = new ArrayList<>();
+    private static ArrayList<Item> doadores = new ArrayList<>();
+    private static ArrayList<Item> receptores = new ArrayList<>();
+
     private static JFrame frame;
     private static JPanel mainPanel;
 
@@ -153,14 +155,14 @@ public class Interface {
                             public void actionPerformed(ActionEvent e) {
                                 
                                 Endereco endereco = new Endereco(textBairroPessoa.getText().toString(), textRuaPessoa.getText().toString(), Integer.parseInt(textNumeroPessoa.getText().toString()));
-                                Item doacao = new Item(1, "", TipoDoacao.Alimentos,  1, true); 
+                                Item doacao = new Item(Integer.parseInt(textCPF.getText().toString()), textEmailPessoa.getText().toString(), TipoDoacao.testeTipoDoacao(comboItensDoacao.getSelectedItem().toString()),  1, true); 
                                 PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.getText().toString()), endereco, textEmailPessoa.getText().toString(), doacao);
                                 
                                 // qtd proviósriamente pré settada para 1, enquanto não hover o Jspinner para para informar a qtd.
             
-                                arrayProvisorio.add(doacao);
+                                doadores.add(doacao);
                                 
-                                    Item.escritaDeArquivo("tipoUsuario.txt", arrayProvisorio);
+                                    Item.escritaDeArquivo("tipoUsuario.txt", doadores);
             
                             }
                         });
