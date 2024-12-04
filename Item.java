@@ -16,6 +16,7 @@ public class Item {
         setNome(nome);
         setQtd(qtd);
         setTipo(tipoDoacao);
+        setDoacao(doacao);
     }
 
     public int getId() {

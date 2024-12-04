@@ -75,6 +75,7 @@ public class Interface {
                     JTextField textRuaPessoa = new JTextField(20);
                     JTextField textNumeroPessoa = new JTextField(20);
                     JTextField textEmailPessoa = new JTextField(20);
+                    JSpinner spinnerQtdPessoa = new JSpinner();
                     //JSpinner spinnerQtdPessoa = new JSpinner(20);
                     
 
@@ -127,6 +128,8 @@ public class Interface {
                         gbc.gridx = 0;
                         gbc.gridy = 15;
                         formContainer.add(textEmailPessoa, gbc);
+                        
+
 
                         // Mostrar a categoria "Itens de doação" somente se o tipo de pessoa for "Doador"
                         comboTipoPessoa.addItemListener(new ItemListener() {
@@ -139,6 +142,10 @@ public class Interface {
                                     gbc.gridx = 0;
                                     gbc.gridy = 17;
                                     formContainer.add(comboItensDoacao, gbc);
+                                    
+                                    gbc.gridx = 10;
+                                    gbc.gridy = 17;
+                                    formContainer.add(spinnerQtdPessoa, gbc);
 
                                 formContainer.revalidate();
                                 formContainer.repaint();
@@ -155,14 +162,12 @@ public class Interface {
                             public void actionPerformed(ActionEvent e) {
                                 
                                 Endereco endereco = new Endereco(textBairroPessoa.getText().toString(), textRuaPessoa.getText().toString(), Integer.parseInt(textNumeroPessoa.getText().toString()));
-                                Item doacao = new Item(Integer.parseInt(textCPF.getText().toString()), textEmailPessoa.getText().toString(), TipoDoacao.testeTipoDoacao(comboItensDoacao.getSelectedItem().toString()),  1, true); 
+                                Item doacao = new Item(Integer.parseInt(textCPF.getText().toString()), textEmailPessoa.getText().toString(), TipoDoacao.testeTipoDoacao(comboItensDoacao.getSelectedItem().toString()), Integer.parseInt(spinnerQtdPessoa.getValue().toString()), true); 
                                 PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.getText().toString()), endereco, textEmailPessoa.getText().toString(), doacao);
-                                
-                                // qtd proviósriamente pré settada para 1, enquanto não hover o Jspinner para para informar a qtd.
-            
+
                                 doadores.add(doacao);
+
                                 
-                                    Item.escritaDeArquivo("tipoUsuario.txt", doadores);
             
                             }
                         });
