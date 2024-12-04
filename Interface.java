@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -63,11 +62,20 @@ public class Interface {
                     JLabel labelTipoPessoa = new JLabel("Doador ou Necessitado:");
                     JComboBox<String> comboTipoPessoa = new JComboBox<>(new String[]{"Informe seu estado", "Doador", "Necessitado"});
                     JComboBox<String> comboItensNecessitados = new JComboBox<>(new String[] {
-                        "Itens de higiene", "Alimentos", "Roupas", "Conforto", "Móveis", "Serviço voluntário", "Dinheiro"
-                });
+                        TipoDoacao.itensDeHigiene.getNome(),
+                        TipoDoacao.Alimentos.getNome(),
+                        TipoDoacao.Roupas.getNome(),
+                        TipoDoacao.conforto.getNome(),
+                        TipoDoacao.moveis.getNome(), TipoDoacao.voluntariado.getNome(),
+                        TipoDoacao.dinheiro.getNome()});
                 comboItensNecessitados.setVisible(true);  // Inicialmente visível
                 JComboBox<String> comboItensDoacao = new JComboBox<>(new String[] {
-                    TipoDoacao.itensDeHigiene.getNome(), TipoDoacao.Alimentos.getNome(), TipoDoacao.Roupas.getNome(), TipoDoacao.conforto.getNome(), TipoDoacao.moveis.getNome(), TipoDoacao.voluntariado.getNome(), TipoDoacao.dinheiro.getNome()});
+                    TipoDoacao.itensDeHigiene.getNome(),
+                    TipoDoacao.Alimentos.getNome(),
+                    TipoDoacao.Roupas.getNome(),
+                    TipoDoacao.conforto.getNome(),
+                    TipoDoacao.moveis.getNome(), TipoDoacao.voluntariado.getNome(),
+                    TipoDoacao.dinheiro.getNome()});
             comboItensDoacao.setVisible(true);  // Inicialmente invisível
                     JTextField textCPF = new JTextField(20);
                     JTextField textCidadePessoa = new JTextField(20);
@@ -160,15 +168,26 @@ public class Interface {
                         btnEnviarPessoa.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                
+                                Boolean estaDoando;
+                                if(comboTipoPessoa.getSelectedItem().equals("Doador")){
+                                    estaDoando = true;
+                                }
+                                else if(comboTipoPessoa.getSelectedItem().equals("Necessitado")){
+                                    estaDoando = false;
+                                }
+                                else {
+                                    estaDoando = null;
+                                }
                                 Endereco endereco = new Endereco(textBairroPessoa.getText().toString(), textRuaPessoa.getText().toString(), Integer.parseInt(textNumeroPessoa.getText().toString()));
-                                Item doacao = new Item(Integer.parseInt(textCPF.getText().toString()), textEmailPessoa.getText().toString(), TipoDoacao.testeTipoDoacao(comboItensDoacao.getSelectedItem().toString()), Integer.parseInt(spinnerQtdPessoa.getValue().toString()), true); 
+                                Item doacao = new Item(Integer.parseInt(textCPF.getText().toString()), textEmailPessoa.getText().toString(), TipoDoacao.testeTipoDoacao(comboItensDoacao.getSelectedItem().toString()), Integer.parseInt(spinnerQtdPessoa.getValue().toString()), estaDoando); 
                                 PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.getText().toString()), endereco, textEmailPessoa.getText().toString(), doacao);
 
-                                doadores.add(doacao);
-
-                                
-            
+                                if (doacao.getDoacao()){
+                                    doadores.add(doacao);
+                                }
+                                else if(!doacao.getDoacao()){
+                                    receptores.add(doacao);
+                                }
                             }
                         });
 
@@ -178,7 +197,6 @@ public class Interface {
                         JTextField textBairroInstituicao = new JTextField(20);
                         JTextField textRuaInstituicao = new JTextField(20);
                         JTextField textNumeroInstituicao = new JTextField(20);
-                        JTextField textItensInstituicao = new JTextField(20);
                         JTextField textEmailInstituicao = new JTextField(20);
 
                         gbc.gridx = 0;
