@@ -83,8 +83,9 @@ public class Interface {
                     JTextField textRuaPessoa = new JTextField(20);
                     JTextField textNumeroPessoa = new JTextField(20);
                     JTextField textEmailPessoa = new JTextField(20);
-                    JSpinner spinnerQtdPessoa = new JSpinner();
-                    //JSpinner spinnerQtdPessoa = new JSpinner(20);
+                    SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 99999, 1);
+                    JSpinner spinnerQtdPessoa = new JSpinner(model);
+                    
                     
 
                     if (tipoUsuario.equals("Pessoa")) {
@@ -153,6 +154,7 @@ public class Interface {
                                     
                                     gbc.gridx = 10;
                                     gbc.gridy = 17;
+                                    spinnerQtdPessoa.setPreferredSize(new Dimension(55, 25));
                                     formContainer.add(spinnerQtdPessoa, gbc);
 
                                 formContainer.revalidate();
@@ -178,15 +180,17 @@ public class Interface {
                                 else {
                                     estaDoando = null;
                                 }
-                                Endereco endereco = new Endereco(textBairroPessoa.getText().toString(), textRuaPessoa.getText().toString(), Integer.parseInt(textNumeroPessoa.getText().toString()));
+                                Endereco endereco = new Endereco(textCidadePessoa.getText(), textBairroPessoa.getText(), textRuaPessoa.getText(), Integer.parseInt(textNumeroPessoa.getText().toString()));
                                 Item doacao = new Item(Integer.parseInt(textCPF.getText().toString()), textEmailPessoa.getText().toString(), TipoDoacao.testeTipoDoacao(comboItensDoacao.getSelectedItem().toString()), Integer.parseInt(spinnerQtdPessoa.getValue().toString()), estaDoando); 
-                                PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.getText().toString()), endereco, textEmailPessoa.getText().toString(), doacao);
+                                
 
                                 if (doacao.getDoacao()){
                                     doadores.add(doacao);
+                                    PessoaDoador usuario = new PessoaDoador(Integer.parseInt(textCPF.getText().toString()), endereco, textEmailPessoa.getText().toString(), doacao);
                                 }
                                 else if(!doacao.getDoacao()){
                                     receptores.add(doacao);
+                                    PessoaVitima usuario = new PessoaVitima(Integer.parseInt(textCPF.getText().toString()), endereco, textEmailPessoa.getText().toString(), doacao);
                                 }
                             }
                         });
