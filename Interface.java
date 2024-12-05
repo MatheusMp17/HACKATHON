@@ -83,6 +83,7 @@ public class Interface {
                     JTextField textRuaPessoa = new JTextField(20);
                     JTextField textNumeroPessoa = new JTextField(20);
                     JTextField textEmailPessoa = new JTextField(20);
+                   
                     SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 99999, 1);
                     JSpinner spinnerQtdPessoa = new JSpinner(model);
                     
@@ -240,19 +241,12 @@ public class Interface {
 
                         gbc.gridx = 0;
                         gbc.gridy = 12;
-                        formContainer.add(new JLabel("Itens Necessitados"), gbc);
-                        gbc.gridx = 0;
-                        gbc.gridy = 13;
-                        formContainer.add(comboItensNecessitados, gbc);
-                        
-
-                        gbc.gridx = 0;
-                        gbc.gridy = 14;
                         formContainer.add(new JLabel("Email"), gbc);
                         gbc.gridx = 0;
-                        gbc.gridy = 15;
+                        gbc.gridy = 13;
                         formContainer.add(textEmailInstituicao, gbc);
-
+                
+                        
                         JButton btnEnviarInstituicao = new JButton("Cadastrar");
                         gbc.gridx = 0;
                         gbc.gridy = 16;
@@ -260,6 +254,9 @@ public class Interface {
                         btnEnviarInstituicao.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                
+                                Endereco endereco = new Endereco(textCidadeInstituicao.getText(), textBairroInstituicao.getText(), textRuaInstituicao.getText(), Integer.parseInt(textNumeroInstituicao.getText().toString()));
+                                Pessoa usuario = new Pessoa(Integer.parseInt(textCNPJ.getText().toString()), endereco, textEmailInstituicao.getText());
                                 showHomeScreen("Instituição");
                             }
                         });
