@@ -257,7 +257,7 @@ public class Interface {
                                 
                                 Endereco endereco = new Endereco(textCidadeInstituicao.getText(), textBairroInstituicao.getText(), textRuaInstituicao.getText(), Integer.parseInt(textNumeroInstituicao.getText().toString()));
                                 Pessoa usuario = new Pessoa(Integer.parseInt(textCNPJ.getText().toString()), endereco, textEmailInstituicao.getText());
-                                showHomeScreen("Instituição");
+                                showHomeScreen(textCNPJ.getText());
                             }
                         });
                     }
@@ -295,12 +295,12 @@ public class Interface {
         homePanel.add(welcomeLabel, gbc);
 
         // Opções de doação ou visualização de itens
-        JButton btnDoar = new JButton("Doar para Instituições");
+        JButton btnDoar = new JButton("Doar");
         gbc.gridx = 0;
         gbc.gridy = 1;
         homePanel.add(btnDoar, gbc);
 
-        JButton btnVerItens = new JButton("Ver itens necessários das Instituições");
+        JButton btnVerItens = new JButton("Solicitar item");
         gbc.gridx = 0;
         gbc.gridy = 2;
         homePanel.add(btnVerItens, gbc);
@@ -357,5 +357,9 @@ public class Interface {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(470, 720);
         return frame;
+    }
+
+    private static void showDoacaoScreen(){
+        
     }
 }
