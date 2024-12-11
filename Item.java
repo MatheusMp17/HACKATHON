@@ -59,6 +59,10 @@ public class Item {
     public String toString() {
         return (getDoacao() + "\n" + getId() + "\n" + getNome() + "\n" + getTipo() + "\n" + getQtd());
     }
+    
+    public String nomeExibição(){
+        return ("Nome: " + getNome() + " Tipo: " + getTipo() + " Quantidade: " + getQtd());
+    }
 
     public static void escritaDeArquivo(ArrayList< Item > itens) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("dados.txt"));
@@ -95,11 +99,7 @@ public class Item {
           
         }
         writer.close();
-    }
-
-
-        
-      
+    }      
 
    public static void escritaDeArquivo(String nomeArquivo, ArrayList< Item > itens) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo))) {
@@ -111,6 +111,9 @@ public class Item {
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());
         }
-    }    
+    }
+   
+  
 }
+
 

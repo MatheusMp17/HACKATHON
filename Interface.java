@@ -10,20 +10,48 @@ public class Interface {
 
     private static JFrame frame;
     private static JPanel mainPanel;
+    private static DoacaoScreen showDoacaoScreen;
 
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+         
         frame = getFrame();
         showLoginScreen();
     }
 
     // Tela de Login ou Cadastro
     private static void showLoginScreen() {
+        JOptionPane.showMessageDialog(frame, "Cada vez mais, na atualidade, faz-se presente a problemática relativa às catástrofes climáticas e suas \n" +
+"implicações, sejam elas econômicas ou sociais. A exemplo disso, levantamentos do Banco Interamericano de \n" +
+"Desenvolvimento (BID) estimam que o prejuízo acarretado pelas enchentes no Rio Grande do Sul, em maio de \n" +
+"2024, ultrapassaram R$ 88 bilhões. Paralelamente, dados do Sebrae RS, em parceria com a Secretaria de Es-\n" +
+"tado e Desenvolvimento Econômico (Sedec), revelam a falência de 35,71% dos negócios no estado, incluindo \n" +
+"micro e pequenas empresas. Ao todo, o fenômeno provocou a morte de 183 pessoas e desaparecimento de 27.\n" +
+"Portanto, a fim de amenizar  situação de vulnerabilidade de grande parcela da população gaúcha, bem como \n" +
+"a sobrecarga logística do Estado, torna-se imprescindível a ação de um mecanismo de assistência às neces-\n" +
+"sidades públicas e privadas provenientes de tais eventos.\n" +
+"Nesse sentido, este programa visa à implementação de um sistema operacional de controle de dados voltado\n" +
+"ao auxílio das prefeituras dos respectivos municípios afetados pelas enchentes ou qualquer outra futura \n" +
+"catástrofe natural. Através dele, será possível determinar, automaticamente, a quantidade necessária de\n" +
+"bens para cada instituição de caridade, de modo a facilitar o processo de direcionamento de pedidos e doa-\n" +
+"ções entre doadores e destinatários.\n" +
+"\n" +
+"FUNCIONAMENTO DO SISTEMA OPERACIONAL:\n" +
+"A partir do cadastro da pessoa - física (CPF) ou jurídica (CNPJ) - será determinado o intuito do agente\n" +
+"em utilizar o sistema, seja ele doar, ou receber. Em seguida, será especificado o tipo de artigo que o a-\n" +
+"gente deseja doar ou receber (alimentos, produtos de limpeza, produtos para higiene etc), sendo cada tipo \n" +
+"correspondente a um número inteiro predeterminado.\n" +
+"Após, serão criadas duas listas, uma para doações e outra para recepções, baseadas nas necessidades espe-\n" +
+"cificadas pelos usuários. \n" +
+"Por fim, serão estabelecidas as relações lógicas de doação e recebimento entre \n" +
+"as duas listas, considerando a quantidade disponível ou não de cada artigo, bem como as localidades que \n" +
+"os requisitam.");
+        
         mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(Color.decode("#f0f0f0"));
         GridBagConstraints gbc = getGbc();
@@ -309,12 +337,22 @@ public class Interface {
         gbc.gridx = 0;
         gbc.gridy = 3;
         homePanel.add(btnSair, gbc);
-
+        
+        
         // Ações
         btnDoar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(frame, "Opção de Doar selecionada!");
+                showDoacaoScreen = new DoacaoScreen(receptores, doadores, Integer.parseInt(tipoUsuario), true);
+                 homePanel.removeAll();
+                 JScrollPane scrollPaneDoacao = new JScrollPane(showDoacaoScreen); // Usa o painel dentro de um JScrollPane
+                 frame.setSize(580, 380);
+                 frame.setContentPane(scrollPaneDoacao); // Atualiza o conteúdo da tela com o novo painel
+                 frame.revalidate();  // Revalida o layout
+                 frame.repaint();  // Redesenha o JFrame
+                
+                
             }
         });
 
@@ -322,6 +360,14 @@ public class Interface {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(frame, "Exibindo itens necessários!");
+                showDoacaoScreen = new DoacaoScreen(receptores, doadores, Integer.parseInt(tipoUsuario), false);
+                homePanel.removeAll();
+                 JScrollPane scrollPaneDoacao = new JScrollPane(showDoacaoScreen); // Usa o painel dentro de um JScrollPane
+                 frame.setSize(580, 380);
+                 frame.setContentPane(scrollPaneDoacao); // Atualiza o conteúdo da tela com o novo painel
+                 frame.revalidate();  // Revalida o layout
+                 frame.repaint();  // Redesenha o JFrame
+
             }
         });
 
@@ -357,9 +403,5 @@ public class Interface {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(470, 720);
         return frame;
-    }
-
-    private static void showDoacaoScreen(){
-        
     }
 }
